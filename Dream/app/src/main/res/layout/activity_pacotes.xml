@@ -9,10 +9,10 @@
     <View
         android:id="@+id/background"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:background="@android:color/holo_blue_dark"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/lista_pacotes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,26 +30,27 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Brasil"
         android:textColor="@android:color/white"
         android:textSize="16sp"
-        android:text="Brasil"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@id/titulo"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/titulo"
         app:layout_constraintTop_toBottomOf="@id/titulo" />
 
     <ListView
+        android:id="@+id/lista_pacotes"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/list_pacotes"
-        app:layout_constraintTop_toBottomOf="@+id/background" />
+        app:layout_constraintTop_toBottomOf="@+id/background"
+        tools:listitem="@layout/item_pacote" />
 
 
 
