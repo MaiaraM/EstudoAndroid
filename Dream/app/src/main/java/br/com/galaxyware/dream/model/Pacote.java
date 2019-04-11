@@ -1,6 +1,8 @@
 package br.com.galaxyware.dream.model;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class Pacote {
 
@@ -30,5 +32,20 @@ public class Pacote {
 
     public BigDecimal getPreco() {
         return preco;
+    }
+
+    public String getResumoData(){
+        Calendar dataIda = Calendar.getInstance();
+
+        Calendar dataVolta = Calendar.getInstance();
+        dataVolta.add(Calendar.DATE, dias);
+
+        SimpleDateFormat formataData = new SimpleDateFormat("dd/MM");
+
+        return formataData.format(dataIda.getTime())
+                + " - "
+                + formataData.format(dataVolta.getTime())
+                + " de "
+                + dataVolta.get(Calendar.YEAR);
     }
 }

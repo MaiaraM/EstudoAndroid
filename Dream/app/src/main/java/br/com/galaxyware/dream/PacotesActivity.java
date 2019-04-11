@@ -1,5 +1,6 @@
 package br.com.galaxyware.dream;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
@@ -24,6 +25,9 @@ public class PacotesActivity extends AppCompatActivity {
 
         List<Pacote> pacotes = new PacoteDAO().lista();
         listaDePacotes.setAdapter(new ListaPacotesAdapter(pacotes, this));
+
+        Intent intent = new Intent(this, ResumoPacoteActivity.class);
+        startActivity(intent);
 
 
     }
