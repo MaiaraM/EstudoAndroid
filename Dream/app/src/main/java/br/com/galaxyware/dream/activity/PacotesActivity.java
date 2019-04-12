@@ -2,7 +2,6 @@ package br.com.galaxyware.dream.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,10 +13,12 @@ import br.com.galaxyware.dream.R;
 import br.com.galaxyware.dream.adapter.ListaPacotesAdapter;
 import br.com.galaxyware.dream.dao.PacoteDAO;
 import br.com.galaxyware.dream.model.Pacote;
+import br.com.galaxyware.dream.util.U;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PacotesActivity extends AppCompatActivity {
+
     @BindView(R.id.lista_pacotes)
     ListView listaDePacotes;
 
@@ -37,10 +38,14 @@ public class PacotesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Pacote pacoteClick = pacotes.get(position);
-                Intent intent = new Intent(PacotesActivity.this, ResumoPacoteActivity.class);
-                intent.putExtra("pacote",  pacoteClick);
-                startActivity(intent);
+                showResumo(pacoteClick);
             }
         });
+    }
+
+    private void showResumo(Pacote pacoteClick) {
+        Intent intent = new Intent(PacotesActivity.this, ResumoPacoteActivity.class);
+        intent.putExtra(U.PACOTE_INTENT,  pacoteClick);
+        startActivity(intent);
     }
 }

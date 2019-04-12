@@ -34,8 +34,8 @@ public class CompraActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        if (intent.hasExtra("pacote")) {
-            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
+        if (intent.hasExtra(U.PACOTE_INTENT)) {
+            final Pacote pacote = (Pacote) intent.getSerializableExtra(U.PACOTE_INTENT);
             txtLocal.setText(pacote.getLocal());
             txtDate.setText(U.getDates(pacote.getDias()));
             txtPrice.setText(U.getPrice(pacote));

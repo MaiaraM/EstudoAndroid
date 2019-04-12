@@ -32,9 +32,14 @@ public class ResumoPacoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resumo_pacote);
         ButterKnife.bind(this);
 
+        loadPacote();
+
+    }
+
+    private void loadPacote() {
         Intent intent = getIntent();
-        if(intent.hasExtra("pacote")){
-            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
+        if(intent.hasExtra(U.PACOTE_INTENT)){
+            final Pacote pacote = (Pacote) intent.getSerializableExtra(U.PACOTE_INTENT);
 
             localPacote.setText(pacote.getLocal());
             diasPacote.setText(U.countDays(pacote));
@@ -47,14 +52,10 @@ public class ResumoPacoteActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(ResumoPacoteActivity.this
                             , PagamentoActivity.class);
-                    intent.putExtra("pacote",  pacote);
+                    intent.putExtra(U.PACOTE_INTENT,  pacote);
                     startActivity(intent);
                 }
             });
         }
-
-
-
-
     }
 }

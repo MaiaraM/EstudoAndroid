@@ -15,6 +15,8 @@ import br.com.galaxyware.dream.model.Pacote;
 
 public class U {
 
+    public static final String PACOTE_INTENT = "pacote";
+
     //Retorna string com dia ou dias
     public static String countDays(Pacote aPacote) {
         int numeroDias = aPacote.getDias();

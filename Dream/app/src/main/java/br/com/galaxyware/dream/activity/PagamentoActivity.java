@@ -41,8 +41,8 @@ public class PagamentoActivity extends AppCompatActivity {
         setTitle("Pagamento");
 
         Intent intent = getIntent();
-        if(intent.hasExtra("pacote")) {
-            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
+        if(intent.hasExtra(U.PACOTE_INTENT)) {
+            final Pacote pacote = (Pacote) intent.getSerializableExtra(U.PACOTE_INTENT);
             txtPrice.setText(U.getPrice(pacote));
 
             btnPay.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +50,7 @@ public class PagamentoActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent(PagamentoActivity.this
                             , CompraActivity.class);
-                    intent.putExtra("pacote",  pacote);
+                    intent.putExtra(U.PACOTE_INTENT,  pacote);
                     startActivity(intent);
                 }
             });
