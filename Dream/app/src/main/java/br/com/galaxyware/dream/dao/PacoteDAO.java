@@ -1,4 +1,4 @@
-package br.com.galaxyware.dream.DAO;
+package br.com.galaxyware.dream.dao;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

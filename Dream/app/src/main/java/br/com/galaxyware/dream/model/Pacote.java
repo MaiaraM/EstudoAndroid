@@ -34,18 +34,5 @@ public class Pacote {
         return preco;
     }
 
-    public String getResumoData(){
-        Calendar dataIda = Calendar.getInstance();
 
-        Calendar dataVolta = Calendar.getInstance();
-        dataVolta.add(Calendar.DATE, dias);
-
-        SimpleDateFormat formataData = new SimpleDateFormat("dd/MM");
-
-        return formataData.format(dataIda.getTime())
-                + " - "
-                + formataData.format(dataVolta.getTime())
-                + " de "
-                + dataVolta.get(Calendar.YEAR);
-    }
 }

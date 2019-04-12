@@ -1,4 +1,4 @@
-package br.com.galaxyware.dream;
+package br.com.galaxyware.dream.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,8 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import br.com.galaxyware.dream.DAO.PacoteDAO;
+import br.com.galaxyware.dream.R;
+import br.com.galaxyware.dream.dao.PacoteDAO;
 import br.com.galaxyware.dream.adapter.ListaPacotesAdapter;
 import br.com.galaxyware.dream.model.Pacote;
 import butterknife.BindView;
