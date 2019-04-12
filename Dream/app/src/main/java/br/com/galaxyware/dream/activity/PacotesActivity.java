@@ -2,14 +2,17 @@ package br.com.galaxyware.dream.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
 
 import br.com.galaxyware.dream.R;
-import br.com.galaxyware.dream.dao.PacoteDAO;
 import br.com.galaxyware.dream.adapter.ListaPacotesAdapter;
+import br.com.galaxyware.dream.dao.PacoteDAO;
 import br.com.galaxyware.dream.model.Pacote;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,12 +27,20 @@ public class PacotesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pacotes);
         ButterKnife.bind(this);
 
-        List<Pacote> pacotes = new PacoteDAO().lista();
+        configListPacote();
+    }
+
+    private void configListPacote() {
+        final List<Pacote> pacotes = new PacoteDAO().lista();
         listaDePacotes.setAdapter(new ListaPacotesAdapter(pacotes, this));
-
-        Intent intent = new Intent(this, ResumoPacoteActivity.class);
-        startActivity(intent);
-
-
+        listaDePacotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Pacote pacoteClick = pacotes.get(position);
+                Intent intent = new Intent(PacotesActivity.this, ResumoPacoteActivity.class);
+                intent.putExtra("pacote",  pacoteClick);
+                startActivity(intent);
+            }
+        });
     }
 }

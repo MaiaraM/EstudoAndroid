@@ -1,11 +1,14 @@
 package br.com.galaxyware.dream.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import br.com.galaxyware.dream.R;
@@ -29,13 +32,29 @@ public class ResumoPacoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resumo_pacote);
         ButterKnife.bind(this);
 
-        Pacote pacoteSP = new Pacote("São Paulo", "sp", 2, new BigDecimal("200.6"));
+        Intent intent = getIntent();
+        if(intent.hasExtra("pacote")){
+            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
 
-        localPacote.setText(pacoteSP.getLocal());
-        diasPacote.setText(U.countDays(pacoteSP));
-        dataPacote.setText(U.getDates(pacoteSP.getDias()));
-        precoPacote.setText(U.getPrice(pacoteSP));
-        fotoLocalPacote.setImageDrawable(U.getFoto(pacoteSP, this));
+            localPacote.setText(pacote.getLocal());
+            diasPacote.setText(U.countDays(pacote));
+            dataPacote.setText(U.getDates(pacote.getDias()));
+            precoPacote.setText(U.getPrice(pacote));
+            fotoLocalPacote.setImageDrawable(U.getFoto(pacote, this));
+
+            btnPagamento.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ResumoPacoteActivity.this
+                            , PagamentoActivity.class);
+                    intent.putExtra("pacote",  pacote);
+                    startActivity(intent);
+                }
+            });
+        }
+
+
+
 
     }
 }

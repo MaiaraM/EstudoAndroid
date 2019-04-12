@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Dream</string>
+    <string name="payment_text">Digite as informações do cartão de crédito que você deseja usar para o pagamento</string>
+    <string name="alphabet">abcdefghijklmnopqrstuvwxyzçABCDEFGHIJKLMNOPQRSTUVWXYZÇ\u0020</string>
 </resources>
