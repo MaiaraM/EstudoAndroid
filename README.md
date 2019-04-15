@@ -17,7 +17,7 @@ Study on best practices for construction of layouts. Components and structures s
 #### Animation XP - Estudo sobre animação
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/40842310/56132342-1c6e4a80-5f60-11e9-9595-39a4981c6332.gif" width="100px" height="100px"/>
+  <img src="https://user-images.githubusercontent.com/40842310/56132342-1c6e4a80-5f60-11e9-9595-39a4981c6332.gif" width="200px" height="250px"/>
 </p>
 
  Splash Screen with animation
