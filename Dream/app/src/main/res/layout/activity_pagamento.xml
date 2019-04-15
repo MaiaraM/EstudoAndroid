@@ -46,7 +46,7 @@
         android:layout_margin="8dp"
         android:hint="Número do Cartão"
         android:inputType="number"
-        android:maxLength="12"
+        android:maxLength="16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/payment_price" />
