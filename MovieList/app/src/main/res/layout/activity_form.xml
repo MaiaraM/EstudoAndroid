@@ -5,8 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FormActivity"
-    android:background="#CFCDCD"
-    >
+    android:background="#CFCDCD">
+
+    <!--<Button-->
+        <!--android:id="@+id/form_btn_image"-->
+        <!--android:layout_width="45dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:drawableStart="@drawable/ic_file_download"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/form_image"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/form_titulo"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/form_titulo" />-->
 
     <EditText
         android:id="@+id/form_titulo"
@@ -44,11 +55,12 @@
         android:textColor="@android:color/white"/>
 
 
-    <TextView
+    <EditText
         android:id="@+id/form_sinopse"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
+        android:hint=" Sinopse/Comentário"
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:gravity="top"

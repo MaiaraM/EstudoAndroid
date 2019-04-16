@@ -106,6 +106,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
             if(aMovie.getImage() != null){
                 image.setImageDrawable(U.getFoto(aMovie.getImage(), context));
                 image.setTag(aMovie.getImage());
+
+            }else{
+                image.setVisibility(View.GONE);
             }
             if(aMovie.getNota() != 0){
                 rating.setVisibility(View.VISIBLE);
