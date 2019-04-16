@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import br.com.galaxyware.movielist.model.Movie;
 import butterknife.BindView;
@@ -14,10 +18,14 @@ import butterknife.ButterKnife;
 
 public class FormActivity extends AppCompatActivity {
 
-    @BindView(R.id.formulario_nota_titulo)
+    @BindView(R.id.form_titulo)
     EditText titulo;
-    @BindView(R.id.formulario_nota_descricao)
-    EditText descricao;
+    @BindView(R.id.form_image)
+    ImageView image;
+    @BindView(R.id.form_ratingBar)
+    RatingBar nota;
+    @BindView(R.id.form_sinopse)
+    TextView sinopse;
 
 
     private int positionReceived = U.INVALID_POSITION;
@@ -38,7 +46,10 @@ public class FormActivity extends AppCompatActivity {
             Movie movieReceive = (Movie) dataReceive.getSerializableExtra(U.KEY_MOVIE);
             positionReceived = dataReceive.getIntExtra(U.POSITION, U.INVALID_POSITION);
             titulo.setText(movieReceive.getTitulo());
-            descricao.setText(movieReceive.getDescricao());
+            image.setImageDrawable(U.getFoto(movieReceive.getImage() , FormActivity.this));
+            image.setTag(movieReceive.getImage());
+            nota.setRating(movieReceive.getNota());
+            sinopse.setText(movieReceive.getSinopse());
         }
     }
 
@@ -51,7 +62,9 @@ public class FormActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.form_salve) {
-            Movie moviesList = new Movie(titulo.getText().toString(), descricao.getText().toString());
+            Movie moviesList = new Movie(titulo.getText().toString(),nota.getRating() ,sinopse.getText().toString());
+
+            moviesList.setImage(image.getTag().toString());
             Intent resultado = new Intent();
             resultado.putExtra(U.KEY_MOVIE, moviesList);
             resultado.putExtra(U.POSITION, positionReceived);

@@ -6,12 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -57,15 +54,12 @@ public class MoviesListActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode != RESULT_CANCELED) {
+        if (resultCode != RESULT_CANCELED) {
             if (isCreatedMovie(requestCode, data)) {
                 if (isResultOk(resultCode)) {
                     Movie movieCreated = getSerializableMovie(data);
                     new MovieDAO().insere(movieCreated);
                     adapter.add(movieCreated);
-                } else if (resultCode == Activity.RESULT_CANCELED) {
-                    Toast.makeText(this
-                            , "Foi desfeito", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -77,16 +71,9 @@ public class MoviesListActivity extends AppCompatActivity {
                         new MovieDAO().altera(positionReceived
                                 , movieEdited);
                         adapter.altera(positionReceived, movieEdited);
-                    } else {
-                        Toast.makeText(this
-                                , "Ocorre um erro na edição do filme", Toast.LENGTH_LONG).show();
+
                     }
-                } else if (resultCode == Activity.RESULT_CANCELED) {
-                    Toast.makeText(this
-                            , "Foi desfeito", Toast.LENGTH_LONG).show();
                 }
-            } else {
-                Log.i("Erro back", "Erro");
             }
         }
     }
@@ -111,7 +98,7 @@ public class MoviesListActivity extends AppCompatActivity {
     }
 
     private void configRecyclerView() {
-        adapter = new MovieListAdapter(this, todos);
+        adapter = new MovieListAdapter(MoviesListActivity.this, todos);
         listView.setAdapter(adapter);
         adapterListener();
         (new ItemTouchHelper(new MovieItemHelperCallBack(adapter))).attachToRecyclerView(listView);
@@ -136,10 +123,6 @@ public class MoviesListActivity extends AppCompatActivity {
 
     private MovieDAO getMovieDAO() {
         MovieDAO dao = new MovieDAO();
-        dao.insere(new Movie("Nota ", "Descrição teste de varios texto e tudo mais e mimimi e talz"));
-        for (int i = 1; i < 10; i++) {
-            dao.insere(new Movie("Nota " + i, "Descrição " + i));
-        }
         return dao;
     }
 

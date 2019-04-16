@@ -8,46 +8,34 @@ import java.io.Serializable;
 public class Movie  implements Serializable {
 
     private final String titulo;
-    private final String descricao;
+    private String image;
+    private final Float nota;
+    private final String sinopse;
 
-    public Movie(String titulo, String descricao) {
+    public Movie(String titulo, Float nota, String sinopse) {
         this.titulo = titulo;
-        this.descricao = descricao;
+        this.nota = nota;
+        this.sinopse = sinopse;
     }
 
-//    private Movie(Parcel p){
-//        titulo = p.readString();
-//        descricao = p.readString();
-//    }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getImage() {
+        return image;
     }
 
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeString(titulo);
-//        dest.writeString(descricao);
-//    }
-//
-//    public static final Parcelable.Creator<Movie>
-//            CREATOR = new Parcelable.Creator<Movie>() {
-//
-//        public Movie createFromParcel(Parcel in) {
-//            return new Movie(in);
-//        }
-//
-//        public Movie[] newArray(int size) {
-//            return new Movie[size];
-//        }
-//    };
+    public Float getNota() {
+        return nota;
+    }
+
+    public String getSinopse() {
+        return sinopse;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

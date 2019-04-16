@@ -2,17 +2,20 @@ package br.com.galaxyware.movielist.ui.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import br.com.galaxyware.movielist.R;
+import br.com.galaxyware.movielist.U;
 import br.com.galaxyware.movielist.model.Movie;
 
 
@@ -42,11 +45,18 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     public void onBindViewHolder(@NonNull MovieViewHolder aViewHolder, int i) {
         Movie movie = mMoviesList.get(i);
         aViewHolder.vincula(movie);
+
+
     }
 
     @Override
     public int getItemCount() {
         return mMoviesList.size();
+    }
+
+    public void add(Movie aMovie){
+        mMoviesList.add(aMovie);
+        notifyDataSetChanged();
     }
 
     public void altera(int position, Movie movie) {
@@ -66,14 +76,21 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     class MovieViewHolder extends RecyclerView.ViewHolder{
         private final TextView titulo;
-        private final TextView descricao;
+        private final ImageView image;
+        private final TextView sinopse;
+        private final RatingBar rating;
+        private final ConstraintLayout cardView;
         private Movie movie;
 
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardView = itemView.findViewById(R.id.cardView);
             titulo = itemView.findViewById(R.id.card_tittle);
-            descricao = itemView.findViewById(R.id.card_sinopse);
+            image = itemView.findViewById(R.id.card_image);
+            sinopse = itemView.findViewById(R.id.card_sinopse);
+            rating = itemView.findViewById(R.id.card_rating);
+            rating.setVisibility(View.GONE);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -85,12 +102,23 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         public void vincula(Movie aMovie){
             this.movie = aMovie;
             titulo.setText(aMovie.getTitulo());
-            descricao.setText(aMovie.getDescricao());
+            sinopse.setText(aMovie.getSinopse());
+            if(aMovie.getImage() != null){
+                image.setImageDrawable(U.getFoto(aMovie.getImage(), context));
+                image.setTag(aMovie.getImage());
+            }
+            if(aMovie.getNota() != 0){
+                rating.setVisibility(View.VISIBLE);
+                rating.isEnabled();
+                rating.setRating(aMovie.getNota());
+                changeColor();
+            }
+        }
+
+        public void changeColor(){
+            cardView.setBackground(U.getFoto("background_card_green", context));
         }
     }
 
-    public void add(Movie aMovie){
-        mMoviesList.add(aMovie);
-        notifyDataSetChanged();
-    }
+
 }
