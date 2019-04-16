@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import br.com.galaxyware.movielist.R;
@@ -17,7 +19,7 @@ import br.com.galaxyware.movielist.model.Movie;
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieViewHolder> {
 
     private final List<Movie> mMoviesList;
-    private  final Context context;
+    private final Context context;
     private OnItemClickListener onItemClickListener;
 
     public MovieListAdapter(Context context, List<Movie> aMovie) {
@@ -33,7 +35,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View viewCreated = LayoutInflater.from(context).inflate(R.layout.activity_card_item, viewGroup, false);
-
         return new MovieViewHolder(viewCreated);
     }
 
@@ -50,7 +51,17 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     public void altera(int position, Movie movie) {
         mMoviesList.set(position, movie);
-        notifyDataSetChanged();
+        notifyItemChanged(position);
+    }
+
+    public void remove(int position) {
+        mMoviesList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void troca(int startPosition, int endPosition) {
+        Collections.swap(mMoviesList, startPosition,endPosition );
+        notifyItemMoved(startPosition,endPosition);
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder{
@@ -61,7 +72,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
-
             titulo = itemView.findViewById(R.id.card_tittle);
             descricao = itemView.findViewById(R.id.card_sinopse);
             itemView.setOnClickListener(new View.OnClickListener() {

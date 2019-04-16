@@ -1,16 +1,22 @@
 package br.com.galaxyware.movielist;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import br.com.galaxyware.movielist.dao.MovieDAO;
+import br.com.galaxyware.movielist.helper.MovieItemHelperCallBack;
 import br.com.galaxyware.movielist.model.Movie;
 import br.com.galaxyware.movielist.ui.adapter.MovieListAdapter;
 import br.com.galaxyware.movielist.ui.adapter.OnItemClickListener;
@@ -18,8 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MoviesListActivity extends AppCompatActivity {
-
-
 
     @BindView(R.id.shopping_recycleview)
     RecyclerView listView;
@@ -29,13 +33,13 @@ public class MoviesListActivity extends AppCompatActivity {
 
     private MovieListAdapter adapter;
     private List<Movie> todos;
-    private int intExtra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movies_list_activity);
         ButterKnife.bind(this);
+
 
         MovieDAO dao = getMovieDAO();
         todos = dao.todos();
@@ -44,7 +48,7 @@ public class MoviesListActivity extends AppCompatActivity {
         btnNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(MoviesListActivity.this, FormActivity.class), 1);
+                startActivityForResult(new Intent(MoviesListActivity.this, FormActivity.class), U.REQUEST_CODE_NEW_MOVIE);
             }
         });
 
@@ -53,42 +57,87 @@ public class MoviesListActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == U.REQUEST_CODE_NEW_MOVIE && resultCode == U.RESULT_CODE_NEW_MOVIE && data.hasExtra(U.KEY_MOVIE)){
-            Movie movieCreated = (Movie) data.getSerializableExtra(U.KEY_MOVIE);
-            new MovieDAO().insere(movieCreated);
-            adapter.add(movieCreated);
-        }
+        if(resultCode != RESULT_CANCELED) {
+            if (isCreatedMovie(requestCode, data)) {
+                if (isResultOk(resultCode)) {
+                    Movie movieCreated = getSerializableMovie(data);
+                    new MovieDAO().insere(movieCreated);
+                    adapter.add(movieCreated);
+                } else if (resultCode == Activity.RESULT_CANCELED) {
+                    Toast.makeText(this
+                            , "Foi desfeito", Toast.LENGTH_LONG).show();
+                }
+            }
 
-        if(requestCode == U.REQUEST_CODE_EDIT_MOVIE
-                && resultCode == U.RESULT_CODE_NEW_MOVIE
-                && data.hasExtra(U.KEY_MOVIE)
-                && data.hasExtra(U.POSITION)){
-            Movie movieEdited = (Movie) data.getSerializableExtra(U.KEY_MOVIE);
-            int positionReceived = data.getIntExtra(U.POSITION, -1);
-            new MovieDAO().altera(positionReceived
-                    ,movieEdited);
-            adapter.altera(positionReceived, movieEdited);
+            if (isEditedMovie(requestCode, data)) {
+                if (isResultOk(resultCode)) {
+                    Movie movieEdited = getSerializableMovie(data);
+                    int positionReceived = data.getIntExtra(U.POSITION, U.INVALID_POSITION);
+                    if (positionReceived > U.INVALID_POSITION) {
+                        new MovieDAO().altera(positionReceived
+                                , movieEdited);
+                        adapter.altera(positionReceived, movieEdited);
+                    } else {
+                        Toast.makeText(this
+                                , "Ocorre um erro na edição do filme", Toast.LENGTH_LONG).show();
+                    }
+                } else if (resultCode == Activity.RESULT_CANCELED) {
+                    Toast.makeText(this
+                            , "Foi desfeito", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Log.i("Erro back", "Erro");
+            }
         }
+    }
+
+    private Movie getSerializableMovie(@Nullable Intent data) {
+        return (Movie) data.getSerializableExtra(U.KEY_MOVIE);
+    }
+
+    private boolean isCreatedMovie(int requestCode, @Nullable Intent data) {
+        return requestCode == U.REQUEST_CODE_NEW_MOVIE
+                && data.hasExtra(U.KEY_MOVIE);
+    }
+
+    private boolean isEditedMovie(int requestCode, Intent data) {
+        return requestCode == U.REQUEST_CODE_EDIT_MOVIE
+                && data.hasExtra(U.KEY_MOVIE)
+                && data.hasExtra(U.POSITION);
+    }
+
+    private boolean isResultOk(int resultCode) {
+        return resultCode == Activity.RESULT_OK;
     }
 
     private void configRecyclerView() {
         adapter = new MovieListAdapter(this, todos);
         listView.setAdapter(adapter);
+        adapterListener();
+        (new ItemTouchHelper(new MovieItemHelperCallBack(adapter))).attachToRecyclerView(listView);
+
+    }
+
+    private void adapterListener() {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(Movie aMovie, int position) {
-                Intent openEditForm = new Intent(MoviesListActivity.this, FormActivity.class);
-                openEditForm.putExtra(U.KEY_MOVIE, aMovie);
-                openEditForm.putExtra(U.POSITION, position);
-                startActivityForResult(openEditForm, U.REQUEST_CODE_EDIT_MOVIE);
+                goFormEdit(aMovie, position);
             }
         });
+    }
+
+    private void goFormEdit(Movie aMovie, int position) {
+        Intent openEditForm = new Intent(MoviesListActivity.this, FormActivity.class);
+        openEditForm.putExtra(U.KEY_MOVIE, aMovie);
+        openEditForm.putExtra(U.POSITION, position);
+        startActivityForResult(openEditForm, U.REQUEST_CODE_EDIT_MOVIE);
     }
 
     private MovieDAO getMovieDAO() {
         MovieDAO dao = new MovieDAO();
         dao.insere(new Movie("Nota ", "Descrição teste de varios texto e tudo mais e mimimi e talz"));
-        for(int i = 1 ; i<10; i++){
+        for (int i = 1; i < 10; i++) {
             dao.insere(new Movie("Nota " + i, "Descrição " + i));
         }
         return dao;

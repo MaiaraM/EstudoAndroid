@@ -1,9 +1,9 @@
 package br.com.galaxyware.movielist;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -18,7 +18,9 @@ public class FormActivity extends AppCompatActivity {
     EditText titulo;
     @BindView(R.id.formulario_nota_descricao)
     EditText descricao;
-    private int positionReceived;
+
+
+    private int positionReceived = U.INVALID_POSITION;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +28,18 @@ public class FormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_form);
         ButterKnife.bind(this);
 
+        getEdited();
+
+    }
+
+    private void getEdited() {
         Intent dataReceive = getIntent();
-        if(dataReceive.hasExtra(U.KEY_MOVIE) && dataReceive.hasExtra(U.POSITION)){
+        if (dataReceive.hasExtra(U.KEY_MOVIE)) {
             Movie movieReceive = (Movie) dataReceive.getSerializableExtra(U.KEY_MOVIE);
-            positionReceived = dataReceive.getIntExtra(U.POSITION, -1);
-            titulo.setText(movieReceive.getTitulo()) ;
+            positionReceived = dataReceive.getIntExtra(U.POSITION, U.INVALID_POSITION);
+            titulo.setText(movieReceive.getTitulo());
             descricao.setText(movieReceive.getDescricao());
         }
-
     }
 
     @Override
@@ -44,12 +50,12 @@ public class FormActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() ==  R.id.form_salve){
+        if (item.getItemId() == R.id.form_salve) {
             Movie moviesList = new Movie(titulo.getText().toString(), descricao.getText().toString());
             Intent resultado = new Intent();
-            resultado.putExtra(U.KEY_MOVIE,moviesList );
+            resultado.putExtra(U.KEY_MOVIE, moviesList);
             resultado.putExtra(U.POSITION, positionReceived);
-            setResult(2, resultado);
+            setResult(Activity.RESULT_OK, resultado);
             finish();
         }
         return super.onOptionsItemSelected(item);
