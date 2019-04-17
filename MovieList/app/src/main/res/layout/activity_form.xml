@@ -7,17 +7,26 @@
     tools:context=".FormActivity"
     android:background="#CFCDCD">
 
-    <!--<Button-->
-        <!--android:id="@+id/form_btn_image"-->
-        <!--android:layout_width="45dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="8dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:drawableStart="@drawable/ic_file_download"-->
-        <!--app:layout_constraintEnd_toStartOf="@+id/form_image"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/form_titulo"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/form_titulo" />-->
+    <Button
+        android:id="@+id/form_btn_image"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/ic_file_download"
+        app:layout_constraintEnd_toStartOf="@+id/form_image"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/form_titulo"
+        app:layout_constraintTop_toBottomOf="@+id/form_titulo" />
+
+    <Button
+        android:id="@+id/form_btn_camera"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_camera"
+        app:layout_constraintStart_toStartOf="@+id/form_btn_image"
+        app:layout_constraintTop_toBottomOf="@+id/form_btn_image" />
+
 
     <EditText
         android:id="@+id/form_titulo"
