@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Students</string>
+    <string name="pt_salvar">Salvar</string>
 </resources>

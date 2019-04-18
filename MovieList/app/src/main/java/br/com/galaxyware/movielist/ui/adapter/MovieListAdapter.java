@@ -46,7 +46,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         Movie movie = mMoviesList.get(i);
         aViewHolder.vincula(movie);
 
-
     }
 
     @Override

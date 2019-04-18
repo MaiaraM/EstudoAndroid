@@ -31,6 +31,7 @@
             android:textSize="22dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/card_telefone"
             app:layout_constraintStart_toEndOf="@+id/card_image"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/first_names"/>
@@ -40,7 +41,6 @@
             android:id="@+id/card_telefone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="Telefone"
             android:textSize="18dp"
@@ -48,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="@+id/card_nome"
             app:layout_constraintStart_toStartOf="@+id/card_nome"
             app:layout_constraintTop_toBottomOf="@+id/card_nome"
-            tools:text="@tools:sample/us_phones"/>
+            tools:text="@tools:sample/us_phones" />
 
 
     </android.support.constraint.ConstraintLayout>

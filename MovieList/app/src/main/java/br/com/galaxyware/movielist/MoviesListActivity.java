@@ -67,7 +67,7 @@ public class MoviesListActivity extends AppCompatActivity {
                 if (isResultOk(resultCode)) {
                     Movie movieEdited = getSerializableMovie(data);
                     int positionReceived = data.getIntExtra(U.POSITION, U.INVALID_POSITION);
-                    if (positionReceived > U.INVALID_POSITION) {
+                    if (positionReceived > U.INVALID_POSITION){
                         new MovieDAO().altera(positionReceived
                                 , movieEdited);
                         adapter.altera(positionReceived, movieEdited);

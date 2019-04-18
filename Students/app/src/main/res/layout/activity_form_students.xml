@@ -6,4 +6,130 @@
     android:layout_height="match_parent"
     tools:context=".FormStudentsActivity">
 
+    <RelativeLayout
+        android:id="@+id/relative_map"
+        android:layout_width="0dp"
+        android:layout_height="240dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_mapa"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/mapa" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="3dp"
+            android:layout_alignBottom="@+id/img_mapa"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="@android:color/holo_green_dark" />
+
+
+        <ImageView
+            android:id="@+id/form_foto1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/button_camera" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/form_layout_student_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_mapa"
+            android:layout_alignParentEnd="true"
+           android:layout_marginTop="10dp"
+
+            android:layout_marginEnd="4dp"
+            android:layout_toEndOf="@+id/form_foto1">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/form_student_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/form_layout_student_name"
+                android:layout_alignBottom="@+id/form_layout_student_name"
+                android:hint="Nome" />
+        </android.support.design.widget.TextInputLayout>
+
+    </RelativeLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/form_layout_student_telephone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_whats"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relative_map">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/form_student_telephone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Telefone" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_whats"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/form_layout_student_telephone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/form_layout_student_telephone"
+        app:layout_constraintTop_toTopOf="@+id/form_layout_student_telephone" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/form_layout_student_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_whats"
+        app:layout_constraintStart_toStartOf="@+id/form_layout_student_telephone"
+        app:layout_constraintTop_toBottomOf="@+id/form_layout_student_telephone">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/form_student_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button_arredondado"
+        android:text="Salvar"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/form_layout_student_email" />
+
+
 </android.support.constraint.ConstraintLayout>

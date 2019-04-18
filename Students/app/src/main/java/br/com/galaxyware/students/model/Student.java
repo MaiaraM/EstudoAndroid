@@ -1,6 +1,8 @@
 package br.com.galaxyware.students.model;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
     private String name;
     private String telephone;
     private String email;
